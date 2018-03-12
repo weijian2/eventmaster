@@ -9,6 +9,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // The savedInstanceState parameter is a Bundle that provides data about the previous instance of the fragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
