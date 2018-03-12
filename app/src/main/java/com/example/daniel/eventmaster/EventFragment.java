@@ -1,6 +1,7 @@
 package com.example.daniel.eventmaster;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.util.Log;
@@ -22,6 +23,18 @@ public class EventFragment extends Fragment {
 
 
     @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.e("Fragment cycle test", "We are at onAttach()");
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.e("Fragment cycle test", "We are at onCreate()");
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         Log.e("Fragment Life cycle test", "We are at onCreateView()");
@@ -31,6 +44,7 @@ public class EventFragment extends Fragment {
         listView.setAdapter(new EventAdapter(getActivity()));
         return view;
     }
+
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
@@ -72,6 +86,12 @@ public class EventFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         Log.e("Fragment cycle test", "We are at onDestroy()");
+    }
+
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        Log.e("Fragment cycle test", "We are at onDetach()");
     }
 
 
