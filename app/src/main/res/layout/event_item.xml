@@ -7,7 +7,7 @@
     <ImageView android:id="@+id/event_logo"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:src="@drawable/event_logo"
+
         android:layout_weight="1"/>
 
     <RelativeLayout android:layout_width="match_parent"

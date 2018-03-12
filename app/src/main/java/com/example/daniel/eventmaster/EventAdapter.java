@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.List;
@@ -39,7 +40,7 @@ public class EventAdapter extends BaseAdapter {
     }
 
     /**
-     *
+     * draw view on each low of ListView.
      * @param position index of this event in data.
      * @param convertView View representation of this event
      * @param parent container of this event(ListView).
@@ -57,17 +58,23 @@ public class EventAdapter extends BaseAdapter {
                     parent, false);
         }
 
-        TextView eventTitle = (TextView) convertView.findViewById(
-                R.id.event_title);
-        TextView eventAddress = (TextView) convertView.findViewById(
-                R.id.event_address);
-        TextView eventDescription = (TextView) convertView.findViewById(
-                R.id.event_content);
+        TextView eventTitle = (TextView) convertView.findViewById(R.id.event_title);
+        TextView eventAddress = (TextView) convertView.findViewById(R.id.event_address);
+        TextView eventDescription = (TextView) convertView.findViewById(R.id.event_content);
+        ImageView eventLogo = (ImageView) convertView.findViewById(R.id.event_logo);
 
         Event r = eventData.get(position);
         eventTitle.setText(r.getTitle());
         eventAddress.setText(r.getAddress());
         eventDescription.setText(r.getContent());
+        if (position < 3) {
+            eventLogo.setImageDrawable(context.getDrawable(R.drawable.gsw));
+        } else if (position >=3 && position < 6) {
+            eventLogo.setImageDrawable(context.getDrawable(R.drawable.lakers));
+        } else {
+            eventLogo.setImageDrawable(context.getDrawable(R.drawable.phi));
+        }
+
         return convertView;
     }
 
