@@ -12,6 +12,7 @@ public class MainActivity extends AppCompatActivity {
         // The savedInstanceState parameter is a Bundle that provides data about the previous instance of the fragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Log.e("Life cycle test", "We are at onCreate()");
 
 //        // Get ListView object from activity_main.xml, transfer xml object to java object
 //        ListView eventListView = (ListView) findViewById(R.id.event_list);
