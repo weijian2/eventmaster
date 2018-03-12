@@ -13,14 +13,14 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Get ListView object from activity_main.xml, transfer xml object to java object
-        ListView eventListView = (ListView) findViewById(R.id.event_list);
-
-        // Initialize an adapter, which used to transfer data from xml to java
-        EventAdapter adapter = new EventAdapter(this);
-
-        // Assign adapter to ListView
-        eventListView.setAdapter(adapter);
+//        // Get ListView object from activity_main.xml, transfer xml object to java object
+//        ListView eventListView = (ListView) findViewById(R.id.event_list);
+//
+//        // Initialize an adapter, which used to transfer data from xml to java
+//        EventAdapter adapter = new EventAdapter(this);
+//
+//        // Assign adapter to ListView
+//        eventListView.setAdapter(adapter);
     }
 
 
