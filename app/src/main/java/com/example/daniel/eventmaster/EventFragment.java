@@ -2,6 +2,7 @@ package com.example.daniel.eventmaster;
 
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -17,7 +18,8 @@ import android.widget.ListView;
  * A simple {@link Fragment} subclass.
  */
 public class EventFragment extends Fragment {
-    OnItemSelectListener mCallback;
+    private ListView mListView;
+    private OnItemSelectListener mCallback;
 
     // Container Activity must implement this interface
     public interface OnItemSelectListener {
@@ -28,6 +30,17 @@ public class EventFragment extends Fragment {
         // Required empty public constructor
     }
 
+    // Change color if comment is selected
+    public void onCommentSelected(int position) {
+        for (int i = 0; i < mListView.getChildCount(); i++){
+            if (position == i) {
+                mListView.getChildAt(i).setBackgroundColor(Color.GREEN);
+            } else {
+                // mListView.getChildAt(i).setBackgroundColor(Color.RED);
+                mListView.getChildAt(i).setBackgroundColor(Color.parseColor("#FAFAFA"));
+            }
+        }
+    }
 
     @Override
     public void onAttach(Context context) {
@@ -53,7 +66,7 @@ public class EventFragment extends Fragment {
         Log.e("Fragment Life cycle test", "We are at onCreateView()");
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_event, container, false);
-        ListView listView = (ListView) view.findViewById(R.id.event_list);
+        mListView = (ListView) view.findViewById(R.id.event_list);
         // listView.setAdapter(new EventAdapter(getActivity()));
 
         // android.R.layout.simple_list_item_1 is built-in XML layout document that is part
@@ -64,10 +77,10 @@ public class EventFragment extends Fragment {
                 getEventNames());
 
         // Assign adapter to ListView.
-        listView.setAdapter(adapter);
+        mListView.setAdapter(adapter);
 
         // Add click listener
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        mListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 mCallback.onItemSelected(i);

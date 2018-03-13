@@ -9,7 +9,8 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 
-public class MainActivity extends AppCompatActivity implements EventFragment.OnItemSelectListener {
+public class MainActivity extends AppCompatActivity
+        implements EventFragment.OnItemSelectListener, CommentFragment.OnCommentSelectListener {
 
     private EventFragment mListFragment;
     private CommentFragment mGridFragment;
@@ -18,6 +19,12 @@ public class MainActivity extends AppCompatActivity implements EventFragment.OnI
     public void onItemSelected(int position) {
         mGridFragment.onItemSelected(position);
     }
+
+    @Override
+    public void onCommentSelected(int position) {
+        mListFragment.onCommentSelected(position);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         // The savedInstanceState parameter is a Bundle that provides data about the previous instance of the fragment

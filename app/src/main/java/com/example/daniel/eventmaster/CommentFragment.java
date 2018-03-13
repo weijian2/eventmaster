@@ -1,6 +1,7 @@
 package com.example.daniel.eventmaster;
 
 
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 
@@ -8,6 +9,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
 
 
@@ -16,11 +18,26 @@ import android.widget.GridView;
  */
 public class CommentFragment extends Fragment {
     private GridView mGridView;
+    private OnCommentSelectListener mCallback;
+
+    // Container Activity must implement this interface
+    public interface OnCommentSelectListener {
+        public void onCommentSelected(int position);
+    }
 
     public CommentFragment() {
         // Required empty public constructor
     }
 
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        try {
+            mCallback = (OnCommentSelectListener) context;
+        } catch(ClassCastException e) {
+            throw new ClassCastException(context.toString() + " must implement OnItemSelectListener");
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -30,6 +47,15 @@ public class CommentFragment extends Fragment {
         // transfer xml object to java object
         mGridView = (GridView) view.findViewById(R.id.comment_grid);
         mGridView.setAdapter(new EventAdapter(getActivity()));
+
+        // Add click listener
+        mGridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                mCallback.onCommentSelected(i);
+            }
+        });
+
         return view;
     }
 
