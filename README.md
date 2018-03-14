@@ -41,6 +41,9 @@ v0.0.1(03/11/2018)<br>
 * Creat project and implement MainActivity.
 v0.0.2(03/12/2018)<br>
 * Create two fragments and change App to fragment based.
+v0.0.3(03/14/2018)<br>
+* Set up firebase as backend server of this project.
+* Update MainActivity interface to login interface.
 
 ## Licenses
 NAN
