@@ -62,20 +62,20 @@ public class MainActivity extends AppCompatActivity
 //            fragmentTransaction.commit();
 //        }
 
-        //add list view
-        mListFragment = new EventFragment();
-        // getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, mListFragment).commit();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(R.id.event_container, mListFragment);
-        fragmentTransaction.commit();
-
-        //add Gridview
-        if (isTablet()) {
-            mGridFragment = new CommentFragment();
-            getSupportFragmentManager().beginTransaction().add(R.id.comment_container, mGridFragment).commit();
-
-        }
+//        //add list view
+//        mListFragment = new EventFragment();
+//        // getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, mListFragment).commit();
+//        FragmentManager fragmentManager = getSupportFragmentManager();
+//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.add(R.id.event_container, mListFragment);
+//        fragmentTransaction.commit();
+//
+//        //add Gridview
+//        if (isTablet()) {
+//            mGridFragment = new CommentFragment();
+//            getSupportFragmentManager().beginTransaction().add(R.id.comment_container, mGridFragment).commit();
+//
+//        }
         FirebaseDatabase database = FirebaseDatabase.getInstance();
         DatabaseReference myRef = database.getReference("textmessage");
         myRef.setValue("Hi there, I am Daniel");
