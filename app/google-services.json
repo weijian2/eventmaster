@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "905940534450",
+    "firebase_url": "https://eventmaster-cmu.firebaseio.com",
+    "project_id": "eventmaster-cmu",
+    "storage_bucket": "eventmaster-cmu.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:905940534450:android:186b93473d02dda6",
+        "android_client_info": {
+          "package_name": "com.example.daniel.eventmaster"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "905940534450-vd55dpij8qalrffsoln1n6dal3uttnkd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARICHCeEyjGlpyDV0oEvtMjdvzD1zF9qQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
