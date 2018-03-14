@@ -8,34 +8,20 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
-public class MainActivity extends AppCompatActivity
-        implements EventFragment.OnItemSelectListener, CommentFragment.OnCommentSelectListener {
+public class MainActivity extends AppCompatActivity {
+    private EditText mUsernameEditText;
+    private EditText mPasswordEditText;
+    private Button mLoginButton;
+    private Button mRegisterButton;
+    private DatabaseReference mDatabase;
 
-    private EventFragment mListFragment;
-    private CommentFragment mGridFragment;
-
-    @Override
-    public void onItemSelected(int position) {
-        if (!isTablet()) {
-            // we need to use explicit intent to start EventGridActivity which hols the CommentFragment
-            // this stands for current context(mainActivity)
-            Intent intent = new Intent(this, EventGridActivity.class);
-            intent.putExtra("position", position);
-            startActivity(intent);
-        } else {
-            mGridFragment.onItemSelected(position);
-        }
-    }
-
-    @Override
-    public void onCommentSelected(int position) {
-        mListFragment.onCommentSelected(position);
-    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,48 +29,13 @@ public class MainActivity extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Log.e("Life cycle test", "We are at Activity1 onCreate()");
+        this.mUsernameEditText = (EditText) findViewById(R.id.username);
+        this.mPasswordEditText = (EditText) findViewById(R.id.password);
+        this.mLoginButton = (Button) findViewById(R.id.login);
+        this.mRegisterButton = (Button) findViewById(R.id.register);
+        // Firebase uses singleton to initialize the sdk(firebase)
+        this.mDatabase = FirebaseDatabase.getInstance().getReference();
 
-//        // Get ListView object from activity_main.xml, transfer xml object to java object
-//        ListView eventListView = (ListView) findViewById(R.id.event_list);
-//
-//        // Initialize an adapter, which used to transfer data from xml to java
-//        EventAdapter adapter = new EventAdapter(this);
-//
-//        // Assign adapter to ListView
-//        eventListView.setAdapter(adapter);
-
-//        // Show different fragment based on different screen size
-//        if (findViewById(R.id.fragment_container) != null) {
-//            Fragment fragment = isTablet() ? new CommentFragment() : new EventFragment();
-//            FragmentManager fragmentManager = getSupportFragmentManager();
-//            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//            fragmentTransaction.add(R.id.fragment_container, fragment);
-//            fragmentTransaction.commit();
-//        }
-
-//        //add list view
-//        mListFragment = new EventFragment();
-//        // getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, mListFragment).commit();
-//        FragmentManager fragmentManager = getSupportFragmentManager();
-//        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//        fragmentTransaction.add(R.id.event_container, mListFragment);
-//        fragmentTransaction.commit();
-//
-//        //add Gridview
-//        if (isTablet()) {
-//            mGridFragment = new CommentFragment();
-//            getSupportFragmentManager().beginTransaction().add(R.id.comment_container, mGridFragment).commit();
-//
-//        }
-        FirebaseDatabase database = FirebaseDatabase.getInstance();
-        DatabaseReference myRef = database.getReference("textmessage");
-        myRef.setValue("Hi there, I am Daniel");
-    }
-
-    private boolean isTablet() {
-        return (getApplicationContext().getResources().getConfiguration().screenLayout &
-                Configuration.SCREENLAYOUT_SIZE_MASK) >=
-                Configuration.SCREENLAYOUT_SIZE_LARGE;
     }
 
 
