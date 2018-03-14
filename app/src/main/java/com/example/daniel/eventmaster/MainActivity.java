@@ -1,5 +1,6 @@
 package com.example.daniel.eventmaster;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -9,6 +10,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.ListView;
 
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
 public class MainActivity extends AppCompatActivity
         implements EventFragment.OnItemSelectListener, CommentFragment.OnCommentSelectListener {
 
@@ -17,7 +21,15 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onItemSelected(int position) {
-        mGridFragment.onItemSelected(position);
+        if (!isTablet()) {
+            // we need to use explicit intent to start EventGridActivity which hols the CommentFragment
+            // this stands for current context(mainActivity)
+            Intent intent = new Intent(this, EventGridActivity.class);
+            intent.putExtra("position", position);
+            startActivity(intent);
+        } else {
+            mGridFragment.onItemSelected(position);
+        }
     }
 
     @Override
@@ -30,7 +42,7 @@ public class MainActivity extends AppCompatActivity
         // The savedInstanceState parameter is a Bundle that provides data about the previous instance of the fragment
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Log.e("Life cycle test", "We are at onCreate()");
+        Log.e("Life cycle test", "We are at Activity1 onCreate()");
 
 //        // Get ListView object from activity_main.xml, transfer xml object to java object
 //        ListView eventListView = (ListView) findViewById(R.id.event_list);
@@ -64,6 +76,9 @@ public class MainActivity extends AppCompatActivity
             getSupportFragmentManager().beginTransaction().add(R.id.comment_container, mGridFragment).commit();
 
         }
+        FirebaseDatabase database = FirebaseDatabase.getInstance();
+        DatabaseReference myRef = database.getReference("textmessage");
+        myRef.setValue("Hi there, I am Daniel");
     }
 
     private boolean isTablet() {
@@ -76,31 +91,31 @@ public class MainActivity extends AppCompatActivity
     @Override
     protected void onStart() {
         super.onStart();
-        Log.e("Life cycle test", "We are at onStart()");
+        Log.e("Life cycle test", "We are at Activity1 onStart()");
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        Log.e("Life cycle test", "We are at onResume()");
+        Log.e("Life cycle test", "We are at Activity1 onResume()");
     }
 
     @Override
     protected void onPause() {
         super.onPause();
-        Log.e("Life cycle test", "We are at onPause()");
+        Log.e("Life cycle test", "We are at Activity1 onPause()");
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        Log.e("Life cycle test", "We are at onStop()");
+        Log.e("Life cycle test", "We are at Activity1 onStop()");
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e("Life cycle test", "We are at onDestroy()");
+        Log.e("Life cycle test", "We are at Activity1 onDestroy()");
     }
 
 }
