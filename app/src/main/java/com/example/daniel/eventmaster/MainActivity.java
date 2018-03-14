@@ -52,7 +52,9 @@ public class MainActivity extends AppCompatActivity {
                 mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.hasChild(username)) {
+                        if (username.equals("") || password.equals("")) {
+                            Toast.makeText(getBaseContext(), "username or password cannot be empty", Toast.LENGTH_SHORT).show();
+                        } else if (dataSnapshot.hasChild(username)) {
                             Toast.makeText(getBaseContext(), "User existed, please log in", Toast.LENGTH_SHORT).show();
                         } else if(!username.equals("") && !password.equals("")) {
                             mDatabase.child("users").child(username).setValue(newUser);
@@ -77,7 +79,9 @@ public class MainActivity extends AppCompatActivity {
                 mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
-                        if (dataSnapshot.hasChild(username) && dataSnapshot.child(username).child("password").getValue().equals(password)) {
+                        if (username.equals("") || password.equals("")) {
+                            Toast.makeText(getBaseContext(), "username or password cannot be empty", Toast.LENGTH_SHORT).show();
+                        } else if (dataSnapshot.hasChild(username) && password.equals(dataSnapshot.child(username).child("password").getValue())) {
                             // log in.....implement later
                             Log.i("my log", "Login Successfully");
                             Toast.makeText(getBaseContext(), "Login Successfully", Toast.LENGTH_SHORT).show();
