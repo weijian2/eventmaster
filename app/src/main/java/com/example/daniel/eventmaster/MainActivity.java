@@ -8,12 +8,17 @@ import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 
 public class MainActivity extends AppCompatActivity {
     private EditText mUsernameEditText;
@@ -35,6 +40,59 @@ public class MainActivity extends AppCompatActivity {
         this.mRegisterButton = (Button) findViewById(R.id.register);
         // Firebase uses singleton to initialize the sdk(firebase)
         this.mDatabase = FirebaseDatabase.getInstance().getReference();
+
+        // Add listener to register button
+        mRegisterButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String username = mUsernameEditText.getText().toString();
+                final String password = Util.md5Encryption(mPasswordEditText.getText().toString());
+                final User newUser = new User(username, password, System.currentTimeMillis());
+                // try to add user to database
+                mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.hasChild(username)) {
+                            Toast.makeText(getBaseContext(), "User existed, please log in", Toast.LENGTH_SHORT).show();
+                        } else if(!username.equals("") && !password.equals("")) {
+                            mDatabase.child("users").child(username).setValue(newUser);
+                            Toast.makeText(getBaseContext(), "Register successfully, please log in", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
+
+        // Add listener to login button
+        mLoginButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                final String username = mUsernameEditText.getText().toString();
+                final String password = Util.md5Encryption(mPasswordEditText.getText().toString());
+                mDatabase.child("users").addListenerForSingleValueEvent(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(DataSnapshot dataSnapshot) {
+                        if (dataSnapshot.hasChild(username) && dataSnapshot.child(username).child("password").getValue().equals(password)) {
+                            // log in.....implement later
+                            Log.i("my log", "Login Successfully");
+                            Toast.makeText(getBaseContext(), "Login Successfully", Toast.LENGTH_SHORT).show();
+                        } else {
+                            Toast.makeText(getBaseContext(), "Username didn't exist or wrong password, please try again", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(DatabaseError databaseError) {
+
+                    }
+                });
+            }
+        });
 
     }
 

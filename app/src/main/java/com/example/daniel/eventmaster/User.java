@@ -7,13 +7,13 @@ package com.example.daniel.eventmaster;
 public class User {
     private String username;
     private String password;
-    private long time;
+    private long registerTime;
 
     public User(final String username, final String password, final long time) {
         // Default constructor required for calls to DataSnapshot.getValue(User.class)
         this.username = username;
         this.password = password;
-        this.time = time;
+        this.registerTime = time;
     }
 
     public String getUsername() {
@@ -33,10 +33,10 @@ public class User {
     }
 
     public long getTime() {
-        return time;
+        return registerTime;
     }
 
     public void setTime(long time) {
-        this.time = time;
+        this.registerTime = time;
     }
 }
