@@ -37,8 +37,10 @@ If you find any more bugs, feel free to contact weijian1@andrew.cmu.edu
 2. Integrate Google AdMob to display user-friendly advertisement
 
 ## Change Log
-v1.0.0(03/11/2018)<br>
+v0.0.1(03/11/2018)<br>
 * Creat project and implement MainActivity.
+v0.0.2(03/12/2018)<br>
+* Create two fragments and change App to fragment based.
 
 ## Licenses
 NAN

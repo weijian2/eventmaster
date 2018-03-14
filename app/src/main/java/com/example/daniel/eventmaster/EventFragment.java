@@ -43,10 +43,13 @@ public class EventFragment extends Fragment {
     }
 
     @Override
+    // 这里的context就是MainActivity, Context is father class of Activity
     public void onAttach(Context context) {
         super.onAttach(context);
         Log.e("Fragment cycle test", "We are at onAttach()");
         try {
+            // instantiates an instance of OnItemSelectListener by casting the
+            // Activity(context here) that is passed into onAttach(), so mCallback is actually our MainActivity
             mCallback = (OnItemSelectListener) context;
         } catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + " must implement OnItemSelectListener");

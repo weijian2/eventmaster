@@ -1,6 +1,7 @@
 package com.example.daniel.eventmaster;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.io.InputStream;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -84,7 +87,7 @@ public class EventAdapter extends BaseAdapter {
         eventDescription.setText(r.getContent());
         // set event logo
         if (position < 3) {
-            eventLogo.setImageDrawable(context.getDrawable(R.drawable.gsw));
+            eventLogo.setImageDrawable(LoadImageFromWebOperations("https://cdn-s3.si.com/s3fs-public/styles/marquee_large_2x/public/2017/10/15/stephen-curry-warriors-preseason.jpg?itok=e3EkDu-G"));
         } else if (position >=3 && position < 6) {
             eventLogo.setImageDrawable(context.getDrawable(R.drawable.lakers));
         } else {
@@ -92,6 +95,16 @@ public class EventAdapter extends BaseAdapter {
         }
 
         return convertView;
+    }
+
+    private Drawable LoadImageFromWebOperations(String url) {
+        try {
+            InputStream is = (InputStream) new URL(url).getContent();
+            Drawable d = Drawable.createFromStream(is, "src name");
+            return d;
+        } catch (Exception e) {
+            return null;
+        }
     }
 
 }
